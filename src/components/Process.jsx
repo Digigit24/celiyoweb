@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { Search, Wrench, Cable, TrendingUp } from 'lucide-react'
+import { useTheme } from '../context/ThemeContext'
 import SectionTag from './SectionTag'
 
 const steps = [
@@ -34,6 +35,8 @@ const steps = [
 ]
 
 export default function Process() {
+  const { isDark } = useTheme()
+
   return (
     <section className="relative py-32">
       <div className="max-w-5xl mx-auto px-6 lg:px-8">
@@ -44,16 +47,16 @@ export default function Process() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.6 }}
-          className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight mb-16"
+          className={`text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight mb-16 ${isDark ? 'text-white' : 'text-primary-900'}`}
         >
           From First Conversation to Live System —{' '}
-          <span className="text-white/50">In Four Weeks.</span>
+          <span className={isDark ? 'text-white/50' : 'text-primary-900/45'}>In Four Weeks.</span>
         </motion.h2>
 
         {/* Steps */}
         <div className="relative">
           {/* Connecting line */}
-          <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-blue-500/20 via-blue-500/10 to-transparent hidden md:block" />
+          <div className={`absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-primary-500/20 via-primary-500/10 to-transparent hidden md:block`} />
 
           <div className="space-y-8">
             {steps.map((step, i) => {
@@ -68,30 +71,30 @@ export default function Process() {
                   className="glass-card rounded-3xl p-8 md:ml-16 relative group"
                 >
                   {/* Step indicator (connected to line) */}
-                  <div className="hidden md:flex absolute -left-16 top-8 w-12 h-12 rounded-xl
-                                  bg-[#0B1120] border border-white/10 items-center justify-center
-                                  group-hover:border-blue-500/30 transition-colors duration-300">
-                    <Icon className="w-5 h-5 text-blue-400/50 group-hover:text-blue-400 transition-colors" />
+                  <div className={`hidden md:flex absolute -left-16 top-8 w-12 h-12 rounded-xl
+                                  ${isDark ? 'bg-[#0B0A1A]' : 'bg-white'} ${isDark ? 'border border-white/10' : 'border border-black/[0.06]'} items-center justify-center
+                                  ${isDark ? 'group-hover:border-purple-500/30' : 'group-hover:border-primary-300'} transition-colors duration-300`}>
+                    <Icon className={`w-5 h-5 transition-colors ${isDark ? 'text-purple-400/50 group-hover:text-purple-400' : 'text-primary-500/50 group-hover:text-primary-500'}`} />
                   </div>
 
                   <div className="flex items-start gap-4 mb-4">
-                    <div className="md:hidden w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.06] flex items-center justify-center shrink-0">
-                      <Icon className="w-5 h-5 text-blue-400/60" />
+                    <div className={`md:hidden w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isDark ? 'bg-white/[0.04] border border-white/[0.06]' : 'bg-black/[0.03] border border-black/[0.06]'}`}>
+                      <Icon className={`w-5 h-5 ${isDark ? 'text-purple-400/60' : 'text-primary-500/60'}`} />
                     </div>
                     <div>
                       <div className="flex items-center gap-3 mb-1">
-                        <span className="text-xs font-mono text-white/20 tracking-widest">{step.num}</span>
+                        <span className={`text-xs font-mono tracking-widest ${isDark ? 'text-white/20' : 'text-primary-900/25'}`}>{step.num}</span>
                         {step.badge && (
                           <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400/70 border border-amber-500/20">
                             {step.badge}
                           </span>
                         )}
                       </div>
-                      <h3 className="text-xl font-bold text-white/90">{step.title}</h3>
+                      <h3 className={`text-xl font-bold ${isDark ? 'text-white/90' : 'text-primary-900/90'}`}>{step.title}</h3>
                     </div>
                   </div>
 
-                  <p className="text-white/40 text-sm leading-relaxed md:pl-14 pl-0">
+                  <p className={`text-sm leading-relaxed md:pl-14 pl-0 ${isDark ? 'text-white/40' : 'text-primary-900/45'}`}>
                     {step.description}
                   </p>
                 </motion.div>
@@ -108,7 +111,7 @@ export default function Process() {
           transition={{ duration: 0.6 }}
           className="mt-12 text-center"
         >
-          <p className="text-sm text-white/30 italic max-w-xl mx-auto">
+          <p className={`text-sm italic max-w-xl mx-auto ${isDark ? 'text-white/30' : 'text-primary-900/35'}`}>
             Zero technical expertise required from your team. Zero operational disruption.
             We manage 100% of the build and integration.
           </p>

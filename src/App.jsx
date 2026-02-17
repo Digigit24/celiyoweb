@@ -1,3 +1,4 @@
+import { useTheme } from './context/ThemeContext'
 import AnimatedBackground from './components/AnimatedBackground'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -14,8 +15,12 @@ import FinalCTA from './components/FinalCTA'
 import Footer from './components/Footer'
 
 export default function App() {
+  const { isDark } = useTheme()
+
   return (
-    <div className="min-h-screen bg-brand-surface text-white font-inter">
+    <div className={`min-h-screen font-inter transition-colors duration-400 ${
+      isDark ? 'bg-[#0B0A1A] text-white' : 'bg-[#F2F2F2] text-[#1e1b3a]'
+    }`}>
       <AnimatedBackground />
       <Navbar />
       <main>

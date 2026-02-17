@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { Quote } from 'lucide-react'
+import { useTheme } from '../context/ThemeContext'
 import SectionTag from './SectionTag'
 
 const testimonials = [
@@ -31,6 +32,8 @@ const metrics = [
 ]
 
 export default function Credibility() {
+  const { isDark } = useTheme()
+
   return (
     <section className="relative py-32 mesh-gradient-section">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -41,7 +44,7 @@ export default function Credibility() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.6 }}
-          className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight mb-16"
+          className={`text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight mb-16 ${isDark ? 'text-white' : 'text-primary-900'}`}
         >
           What Our Clients Experience.
         </motion.h2>
@@ -57,13 +60,13 @@ export default function Credibility() {
               transition={{ duration: 0.5, delay: i * 0.12 }}
               className="glass-card rounded-3xl p-8 flex flex-col"
             >
-              <Quote className="w-8 h-8 text-blue-500/20 mb-6" />
-              <p className="text-white/50 text-sm leading-relaxed flex-1 italic">
+              <Quote className={`w-8 h-8 mb-6 ${isDark ? 'text-purple-500/20' : 'text-primary-200'}`} />
+              <p className={`text-sm leading-relaxed flex-1 italic ${isDark ? 'text-white/50' : 'text-primary-900/50'}`}>
                 "{t.quote}"
               </p>
-              <div className="mt-8 pt-6 border-t border-white/[0.06]">
-                <p className="text-white/80 font-semibold text-sm">{t.name}</p>
-                <p className="text-white/30 text-xs mt-0.5">
+              <div className={`mt-8 pt-6 border-t ${isDark ? 'border-white/[0.06]' : 'border-black/[0.06]'}`}>
+                <p className={`font-semibold text-sm ${isDark ? 'text-white/80' : 'text-primary-900/80'}`}>{t.name}</p>
+                <p className={`text-xs mt-0.5 ${isDark ? 'text-white/30' : 'text-primary-900/35'}`}>
                   {t.title}{t.location && ` · ${t.location}`}
                 </p>
               </div>
@@ -79,7 +82,7 @@ export default function Credibility() {
           transition={{ duration: 0.6 }}
           className="glass-card rounded-3xl p-8 lg:p-10"
         >
-          <h3 className="text-lg font-bold text-white/80 mb-8">Results Summary</h3>
+          <h3 className={`text-lg font-bold mb-8 ${isDark ? 'text-white/80' : 'text-primary-900/80'}`}>Results Summary</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {metrics.map((m, i) => (
               <motion.div
@@ -90,11 +93,11 @@ export default function Credibility() {
                 transition={{ duration: 0.4, delay: i * 0.1 }}
                 className="text-center"
               >
-                <p className="text-xs font-medium text-white/30 uppercase tracking-wider mb-3">
+                <p className={`text-xs font-medium uppercase tracking-wider mb-3 ${isDark ? 'text-white/30' : 'text-primary-900/35'}`}>
                   {m.label}
                 </p>
-                <p className="text-white/20 text-sm line-through mb-1">{m.before}</p>
-                <p className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-amber-400 bg-clip-text text-transparent">
+                <p className={`text-sm line-through mb-1 ${isDark ? 'text-white/20' : 'text-primary-900/25'}`}>{m.before}</p>
+                <p className="text-2xl font-bold bg-gradient-to-r from-primary-500 to-accent-500 bg-clip-text text-transparent">
                   {m.after}
                 </p>
               </motion.div>

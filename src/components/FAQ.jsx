@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import SectionTag from './SectionTag'
+import { useTheme } from '../context/ThemeContext'
 
 const faqs = [
   {
@@ -26,7 +27,7 @@ const faqs = [
   },
 ]
 
-function FAQItem({ faq, isOpen, onToggle }) {
+function FAQItem({ faq, isOpen, onToggle, isDark }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -37,15 +38,15 @@ function FAQItem({ faq, isOpen, onToggle }) {
     >
       <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between p-6 text-left cursor-pointer
-                   hover:bg-white/[0.02] transition-colors duration-200"
+        className={`w-full flex items-center justify-between p-6 text-left cursor-pointer
+                   ${isDark ? 'hover:bg-white/[0.02]' : 'hover:bg-black/[0.02]'} transition-colors duration-200`}
       >
-        <span className="text-white/70 font-semibold text-base pr-4">{faq.question}</span>
+        <span className={`${isDark ? 'text-white/70' : 'text-primary-900/80'} font-semibold text-base pr-4`}>{faq.question}</span>
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3 }}
         >
-          <ChevronDown className="w-5 h-5 text-white/30 shrink-0" />
+          <ChevronDown className={`w-5 h-5 ${isDark ? 'text-white/30' : 'text-primary-900/40'} shrink-0`} />
         </motion.div>
       </button>
       <AnimatePresence initial={false}>
@@ -58,7 +59,7 @@ function FAQItem({ faq, isOpen, onToggle }) {
             className="overflow-hidden"
           >
             <div className="px-6 pb-6 pt-0">
-              <p className="text-white/40 text-sm leading-relaxed">{faq.answer}</p>
+              <p className={`${isDark ? 'text-white/40' : 'text-primary-900/50'} text-sm leading-relaxed`}>{faq.answer}</p>
             </div>
           </motion.div>
         )}
@@ -69,6 +70,7 @@ function FAQItem({ faq, isOpen, onToggle }) {
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(null)
+  const { isDark } = useTheme()
 
   return (
     <section className="relative py-32 mesh-gradient-section">
@@ -80,7 +82,7 @@ export default function FAQ() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.6 }}
-          className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight mb-12"
+          className={`text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight ${isDark ? 'text-white' : 'text-primary-900'} leading-tight mb-12`}
         >
           Addressing the Practical Concerns.
         </motion.h2>
@@ -92,6 +94,7 @@ export default function FAQ() {
               faq={faq}
               isOpen={openIndex === i}
               onToggle={() => setOpenIndex(openIndex === i ? null : i)}
+              isDark={isDark}
             />
           ))}
         </div>
